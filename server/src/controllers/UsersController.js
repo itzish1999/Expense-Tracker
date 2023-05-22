@@ -27,7 +27,7 @@ async function updateUser(req, res) {
         const { name, email, password } = req.body;
 
         const user = await User.findById(userId);
-        isUserExist(user);
+        isExist(user);
 
         user.name = name;
         user.email = email;
@@ -40,11 +40,11 @@ async function updateUser(req, res) {
     }
 }
 
-async function DeleteUser(req, res) {
+async function deleteUser(req, res) {
     try {
         const userId = req.params.id;
         const user = await User.findById(userId);
-        isUserExist(user);
+        isExist(user);
         await User.delete();
         res.json({ message: 'User Successfully Deleted' });
 
@@ -57,5 +57,5 @@ module.exports = {
     getUser,
     createUser,
     updateUser,
-    DeleteUser
+    deleteUser
 };
