@@ -25,18 +25,9 @@ class User {
         try {
             const result = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
             const user = result.rows[0];
-            user ? new User(user.id, user.name, user.email, user.password) : null;
+            user.length !== 0 ? new User(user.id, user.name, user.email, user.password) : null;
         } catch (error) {
             throw new Error('Failed to find user by id');
-        }
-    }
-
-    static async findAll() {
-        try {
-            const result = await pool.query('SELECT * FROM users')
-            return result.rows.map((user) => new User(user.id, user.name, user.email, user.password));
-        } catch (error) {
-            throw new Error('Failed to get all users');
         }
     }
 
