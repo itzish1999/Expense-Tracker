@@ -19,7 +19,7 @@ class Categories {
         }
     }
 
-    static async getCategoryById(id) {
+    static async findCategoryById(id) {
         try {
             const result = await pool.query('SELECT * FROM categories WHERE id = $1', [id]);
             const category = result.rows[0];
