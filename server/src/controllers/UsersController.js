@@ -4,7 +4,7 @@ async function getUser(req, res) {
     try {
         const userId = req.params.id;
         const user = await User.findById(userId);
-        user ? res.json(user) : res.status(404).json({ error: "User Not Found " });
+        Object.keys(user).length !== 0 ? res.json(user) : res.status(404).json({ error: "User Not Found " });
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error: CANNOT GET USER' });
     }
@@ -26,7 +26,7 @@ async function updateUser(req, res) {
         const { name, email, password } = req.body;
 
         const user = await User.findById(userId);
-        if (!user) {
+        if (Object.keys(user).length !== 0) {
             res.status(404).json({ error: 'User not found' });
             return;
         }
@@ -46,11 +46,10 @@ async function DeleteUser(req, res) {
     try {
         const userId = req.params.id;
         const user = await User.findById(userId);
-        if (!user) {
+        if (Object.keys(user).length !== 0) {
             res.status(404).json({ error: 'User Not Found' });
             return;
         }
-
         await User.delete();
         res.json({ message: 'User Successfully Deleted' });
 
